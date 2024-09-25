@@ -1,3 +1,20 @@
+// Загрузка списка игроков с Firebase при загрузке страницы
+function loadPlayersFromFirebase() {
+    var playersRef = firebase.database().ref('players');
+    playersRef.once('value', function(snapshot) {
+        players = snapshot.val() || []; // Получаем список игроков с базы данных
+        updatePlayersTable();
+        checkRegistration();
+    });
+}
+
+// Сохранение игрока в Firebase
+function savePlayerToFirebase(nickname) {
+    var playersRef = firebase.database().ref('players');
+    players.push(nickname);
+    playersRef.set(players); // Сохраняем обновленный список игроков в Firebase
+}
+
 // Модальное окно
 var modal = document.getElementById("nicknameModal");
 var btn = document.getElementById("registerButton");
@@ -6,7 +23,7 @@ var submitBtn = document.getElementById("submitNickname");
 var nicknameInput = document.getElementById("nicknameInput");
 var playersTable = document.getElementById("playersTable");
 
-var players = JSON.parse(localStorage.getItem('players')) || []; // Загрузка сохраненных игроков
+var players = []; // Локальный список игроков
 var maxPlayers = 8; // Максимальное количество игроков
 var registered = localStorage.getItem('registered') || false; // Проверка, зарегистрирован ли текущий пользователь
 
@@ -53,8 +70,7 @@ submitBtn.onclick = function() {
     }
 
     if (!registered) {
-        players.push(nickname);
-        localStorage.setItem('players', JSON.stringify(players)); // Сохраняем список игроков в localStorage
+        savePlayerToFirebase(nickname); // Сохранение игрока в Firebase
         localStorage.setItem('registered', true); // Отмечаем, что пользователь зарегистрирован
         registered = true; // Устанавливаем флаг
         updatePlayersTable();
@@ -85,6 +101,5 @@ function updatePlayersTable() {
 
 // Инициализация таблицы и проверка кнопки при загрузке страницы
 document.addEventListener("DOMContentLoaded", function() {
-    updatePlayersTable(); // Обновление таблицы
-    checkRegistration(); // Проверяем, нужно ли скрыть кнопку
+    loadPlayersFromFirebase(); // Загружаем игроков из Firebase при загрузке страницы
 });
