@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Турнир по Clash Royal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="overlay">
+            <h1>ТУРНИР</h1>
+            <h2>по мобильной игре Clash Royal</h2>
+            <h3>ХХ.ХХ.2024</h3>
+        </div>
+        <img src="https://img.redbull.com/images/c_crop,w_1450,h_725,x_529,y_0,f_auto,q_auto/c_scale,w_1200/redbullcom/2018/08/10/ac2ec94e-3f1b-41c2-8ba6-668617e4e27e/how-to-build-a-winning-clash-royale-deck" alt="Clash Royale Image">
+    </header>
+
+    <main>
+        <button id="registerButton" class="big-button">Зарегистрироваться</button>
+
+        <!-- Модальное окно для ввода никнейма -->
+        <div id="nicknameModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Введите ваш никнейм</h2>
+                <input type="text" id="nicknameInput" placeholder="Ваш никнейм">
+                <button id="submitNickname">Подтвердить</button>
+            </div>
+        </div>
+
+        <h2>Зарегистрированные игроки:</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Никнейм</th>
+                </tr>
+            </thead>
+            <tbody id="playersTable">
+                <!-- Зарегистрированные игроки будут добавляться сюда -->
+            </tbody>
+        </table>
+    </main>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
